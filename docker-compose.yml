@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  nats-streaming:
+    image: nats-streaming
+    container_name: nats-streaming
+    command: ["--http_port", "8222"]
+    ports:
+      - "4222:4222"
+      - "8222:8222"
+    networks:
+      - nats-streaming
+
+  postgres:
+    image: postgres
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+
+    container_name: postgres
+    environment:
+      POSTGRES_DB: order
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - nats-streaming
+
+networks:
+  nats-streaming:
+    external: true
+
+volumes:
+  pgdata:
