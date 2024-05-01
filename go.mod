@@ -10,6 +10,7 @@ require (
 require (
 	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/nats-io/stan.go v0.10.4 // indirect
+	github.com/patrickmn/go-cache v2.1.0+incompatible // indirect
 )
 
 require (

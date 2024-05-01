@@ -5,10 +5,10 @@ import (
 	"log"
 	"log/slog"
 	"net/http"
-
+	cache "orderinfoservice/internal/cache"
 	database "orderinfoservice/internal/database"
+	subscriber "orderinfoservice/internal/nats"
 	repository "orderinfoservice/internal/repository"
-	subscriber "orderinfoservice/internal/subscriber"
 
 	handler "orderinfoservice/internal/handler"
 	migrate "orderinfoservice/internal/migrate"
@@ -72,6 +72,11 @@ func main() {
 	repository := repository.NewRepository(db)
 	service := service.NewService(repository)
 	handler := handler.NewHandler(service)
+	if err := cache.InitCache(repository); err != nil {
+		log.Fatalf("ошибка при инициализации кэша: %v", err)
+	}
+
+	logger.Info("Инициализация кэша выполнена")
 	handler.InitRoutes(sc)
 
 	// Запуск веб-сервера на порте 8080

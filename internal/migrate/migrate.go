@@ -21,7 +21,6 @@ func ApplyMigrations(db *sql.DB, driver database.Driver) error {
 	// Применение миграций
 	if err := m.Up(); err != nil {
 		if err == migrate.ErrNoChange {
-			fmt.Println("Нет миграций для применения")
 			return nil
 		}
 		return fmt.Errorf("ошибка применения миграции: %w", err)

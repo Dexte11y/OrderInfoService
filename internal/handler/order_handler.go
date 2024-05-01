@@ -28,3 +28,24 @@ func (h *Handler) CreateOrderHandler(w http.ResponseWriter, r *http.Request, sc 
 	w.WriteHeader(http.StatusOK)
 	fmt.Fprintf(w, "Заказ успешно создан")
 }
+
+func (h *Handler) GetOrderByIDHandler(w http.ResponseWriter, r *http.Request, sc stan.Conn) {
+	orderUID := r.URL.Query().Get("orderUID")
+	order, err := h.Service.GetOrderByIDService(sc, orderUID)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	orderJSON, err := json.Marshal(order)
+	if err != nil {
+		// Обработка ошибки сериализации JSON
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		return
+	}
+
+	// Отправляем данные в виде JSON в http.ResponseWriter
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	w.Write(orderJSON)
+
+}

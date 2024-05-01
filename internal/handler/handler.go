@@ -24,12 +24,7 @@ func (h *Handler) InitRoutes(sc stan.Conn) {
 		h.CreateOrderHandler(w, r, sc)
 	})
 
-	http.HandleFunc("/about", aboutHandler)
-	// Добавьте другие маршруты здесь по мере необходимости
-}
-
-// Обработчик для URL /about
-func aboutHandler(w http.ResponseWriter, r *http.Request) {
-	w.WriteHeader(http.StatusOK)
-	w.Write([]byte("Это страница 'О нас'."))
+	http.HandleFunc("/get_order", func(w http.ResponseWriter, r *http.Request) {
+		h.GetOrderByIDHandler(w, r, sc)
+	})
 }
