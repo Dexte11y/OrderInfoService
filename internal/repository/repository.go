@@ -78,8 +78,6 @@ func (repo *Repository) CreateOrderRepository(order model.Order) error {
 			return fmt.Errorf("ошибка при добавлении товара: %w", err)
 		}
 	}
-
-	fmt.Println("Заказ успешно добавлен в БД")
 	return nil
 }
 

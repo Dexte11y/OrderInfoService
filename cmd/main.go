@@ -22,8 +22,6 @@ import (
 func main() {
 	logger := slog.Default()
 
-	//TODO добавить clean_env
-
 	sc, err := nats.ConnectToNats()
 	if err != nil {
 		logger.Error("Ошибка подключения к NATS: ", err)

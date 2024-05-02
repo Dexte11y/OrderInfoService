@@ -11,8 +11,7 @@ import (
 
 func NewSubscribe(sc stan.Conn) (stan.Subscription, error) {
 	sub, err := sc.Subscribe("example-subject", func(msg *stan.Msg) {
-		// fmt.Printf("Получено сообщение: %s\n", string(msg.Data))
-		fmt.Println("Получено сообщение")
+		fmt.Println("Subscriber: получено сообщение")
 	}, stan.DurableName("example-durable"))
 	if err != nil {
 		return nil, fmt.Errorf("ошибка создания подписчика: %v", err)

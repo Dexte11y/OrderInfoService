@@ -57,7 +57,6 @@ func SetOrderToCache(order model.Order) error {
 
 func GetOrderByIDCache(orderUID string) (interface{}, error) {
 	if value, found := c.Get(orderUID); found {
-		log.Println("Значение из кеша:", value)
 		return value, nil
 	} else {
 		return nil, fmt.Errorf("запись не найдена в кеше")
